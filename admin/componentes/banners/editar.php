@@ -4,7 +4,58 @@ $pageTitle = "Banners - Panel de Control";
 include '../../../templates/header-admin.php';
 ?>
 
-Panel de Editar Banner
+</br>
+<div class="card">
+   <div class="card-header">Editar Banner</div>
+   <div class="card-body">
+     <form action="" method="post">
+
+     <div class="mb-3">
+      <label for="titulo" class="form-label">Título:</label>
+      <input
+         type="text"
+         class="form-control"
+         name="titulo"
+         id="titulo"
+         aria-describedby="helpId"
+         placeholder="Escribe el título del banner"
+      />
+     </div>
+
+     <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripcion:</label>
+      <input
+         type="text"
+         class="form-control"
+         name="descripcion"
+         id="descripcion"
+         aria-describedby="helpId"
+         placeholder="Escribe la descripcion del banner"
+      />
+     </div>
+
+     <div class="mb-3">
+      <label for="link" class="form-label">Elance Call To Action:</label>
+      <input
+         type="text"
+         class="form-control"
+         name="link"
+         id="link"
+         aria-describedby="helpId"
+         placeholder="Escribe el link para el banner"
+      />
+     </div>
+     
+     </form>
+   </div>
+   <div class="card-footer text-end">
+
+   <button type="submit" class="btn btn-success"> Confirmar </button>
+   <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>
+   
+</div>
+</div>
+
 
 <?php
 include '../../../templates/footer.php';
