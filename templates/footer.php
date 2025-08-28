@@ -1,7 +1,8 @@
 <?php
 // footer.php
 ?>
-    
+    </section>
+
     
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy; <?php echo date('Y'); ?> Proyecto PHP 2025 Tecnologo Informatica.</p>
