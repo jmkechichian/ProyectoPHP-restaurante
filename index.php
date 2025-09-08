@@ -1,17 +1,32 @@
    <?php
-// index.php
+
 $pageTitle = "Inicio - Mi Sitio Web";
 include 'templates/header.php';
+
+//Conexión a la base de datos
+include 'admin/bd.php';
+
+//Banners
+$sentencia=$conexion->prepare("SELECT * FROM tbl_banner limit 1");
+$sentencia->execute();
+$lista_banners = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
-    <!-- Banner que ocupa todo el ancho -->
+    <!-- Secciòn de Banner-->
     <section>
       <div class="banner">
           <div class="banner-content">
-              <h1>¡Bienvenido!</h1>
-              <p>Este banner ocupa todo el ancho de la pantalla sin importar el tamaño del dispositivo</p>
+
+          <?php foreach($lista_banners as $banner) { 
+            ?>
+              <h1> <?php echo $banner['Nombre'];?> </h1>
+              <p><?php echo $banner['Descripcion'];?></p>
               <button href="#" type="button" class="btn btn-outline-light btn-lg">Ver Menu</button>
-          </div>
+          
+          <?php } ?>
+          
+            </div>
       </div>
   </section>
 

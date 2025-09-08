@@ -2,6 +2,36 @@
 // index.php
 $pageTitle = "Banners - Panel de Control";
 include '../../../templates/header-admin.php';
+include '../../bd.php';
+
+
+
+if ($_POST) {
+  
+    
+    $titulo = $_POST['titulo'] ?? '';
+    $descripcion = $_POST['descripcion'] ?? '';
+    $link = $_POST['link'] ?? '';
+
+    $sentencia = $conexion->prepare
+            ("INSERT INTO `tbl_banner` (`ID`, `Nombre`, `Descripcion`, `Enlace`) 
+               VALUES (NULL, :titulo, :descripcion, :link);");
+
+   $sentencia->bindParam(':titulo', $titulo);
+   $sentencia->bindParam(':descripcion', $descripcion);
+   $sentencia->bindParam(':link', $link);
+   
+    if($sentencia->execute()) {
+      
+        echo '<script>alert("Banner agregado correctamente");</script>';
+     
+        echo '<script>window.location.href = "index.php";</script>';
+    } else {
+        echo '<script>alert("Error al agregar el banner");</script>';
+    }
+    exit(); 
+}
+
 ?>
 </br>
 <div class="card">
@@ -45,13 +75,13 @@ include '../../../templates/header-admin.php';
       />
      </div>
      
-     </form>
+     
    </div>
    <div class="card-footer text-end">
 
    <button type="submit" class="btn btn-success"> Confirmar </button>
    <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>
-   
+   </form>
 </div>
 </div>
 
