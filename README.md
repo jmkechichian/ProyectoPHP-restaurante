@@ -27,10 +27,10 @@ GRANT ALL PRIVILEGES ON restaurante.* TO 'usuario_restaurante'@'localhost';
 FLUSH PRIVILEGES;
 
 3. Importar la estructura de la base de datos
-   # Con los datos de prueba que proporcionamos 
+   Con los datos de prueba que proporcionamos 
 mysql -u root -p restaurante < database/restaurante.sql
 
-  # Ingresando a phpMyAdmin e importar el archivo restaurante.sql
+  Ingresando a phpMyAdmin e importar el archivo restaurante.sql
 
 4. Configurar las variables de la aplicación
   Edita el archivo admin/bd.php con los datos de tu base de datos:
