@@ -1,7 +1,7 @@
    <?php
 // index.php
 $pageTitle = "Banners - Panel de Control";
-include '../../../templates/header-admin.php';
+include '../../../templates/header.php';
 include '../../bd.php';
 
 

@@ -11,7 +11,26 @@ $sentencia=$conexion->prepare("SELECT * FROM tbl_banner limit 1");
 $sentencia->execute();
 $lista_banners = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+// Menú
+$sentencia_menu = $conexion->prepare("SELECT * FROM tbl_menu");
+$sentencia_menu->execute();
+$lista_menu = $sentencia_menu->fetchAll(PDO::FETCH_ASSOC);
+
+// IDs de Favoritos del Usuario (solo si está logueado)
+$lista_ids_favoritos = [];
+if (isset($_SESSION['user_id'])) {
+    $id_usuario = $_SESSION['user_id'];
+
+    $sentencia_favoritos = $conexion->prepare("SELECT ID_menu FROM tbl_favoritos WHERE ID_usuario = :id_usuario");
+    $sentencia_favoritos->bindParam(':id_usuario', $id_usuario);
+    $sentencia_favoritos->execute();
+
+    $lista_ids_favoritos = $sentencia_favoritos->fetchAll(PDO::FETCH_COLUMN, 0);
+}
 ?>
+
+
+
 
     <!-- Secciòn de Banner-->
     <section>
@@ -32,6 +51,67 @@ $lista_banners = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
     <br>
     <br>
+
+<!-- SECCION MENU EL VIDEO ESTA CORTADO EN MIN 30-->
+<!-- SECCION MENU -->
+<section id="menu" class="container">
+    <h2 class="text-center mb-4">Nuestro Menú</h2>
+    <div class="row">
+        <?php foreach ($lista_menu as $plato) { ?>
+            <div class="col-md-6">
+                <div class="dish-card card mb-4">
+                    <!-- Agregar la imagen aquí -->
+                    <?php if (!empty($plato['foto'])): ?>
+                        <img src="images/<?php echo htmlspecialchars($plato['foto']); ?>" 
+                             class="card-img-top" 
+                             alt="<?php echo htmlspecialchars($plato['Nombre']); ?>"
+                             style="height: 200px; object-fit: cover;">
+                    <?php else: ?>
+                        <img src="images/default.jpg" 
+                             class="card-img-top" 
+                             alt="Imagen no disponible"
+                             style="height: 200px; object-fit: cover;">
+                    <?php endif; ?>
+                    
+                    <div class="card-body">
+                        <!-- El resto del contenido permanece igual -->
+                        <div class="d-flex justify-content-between">
+                            <h5 class="dish-name mb-0"><?php echo htmlspecialchars($plato['Nombre']); ?></h5>
+                            <div class="d-flex align-items-center">
+                                <span class="dish-price fw-bold">$<?php echo htmlspecialchars($plato['Precio']); ?></span>
+
+                                <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'cliente'): ?>
+
+                                    <!-- Botón de Favoritos -->
+                                    <?php if (in_array($plato['ID'], $lista_ids_favoritos)): ?>
+                                        <a href="cliente/favoritos/eliminar.php?id=<?php echo $plato['ID']; ?>&ref=index" class="btn btn-danger btn-sm ms-2" title="Quitar de favoritos">
+                                            <i class="bi bi-heart-fill"></i>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="cliente/favoritos/agregar.php?id=<?php echo $plato['ID']; ?>" class="btn btn-outline-danger btn-sm ms-2" title="Añadir a favoritos">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
+                                    <?php endif; ?>
+
+                                    <!-- Añadir al Carrito -->
+                                    <form action="cliente/carrito/agregar.php" method="post" style="display: inline;">
+                                        <input type="hidden" name="id_producto" value="<?php echo $plato['ID']; ?>">
+                                        <input type="hidden" name="cantidad" value="1">
+                                        <button type="submit" class="btn btn-primary btn-sm ms-1" title="Añadir al carrito">
+                                            <i class="bi bi-cart-plus-fill"></i>
+                                        </button>
+                                    </form>
+
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <p class="dish-ingredients mt-2 pt-2 border-top border-dashed"><?php echo htmlspecialchars($plato['Descripcion']); ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</section>
 
     
 <!-- SECCION CHEFS-->
@@ -121,150 +201,7 @@ $lista_banners = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 <br>
 <br>
 
-<!-- SECCION MENU EL VIDEO ESTA CORTADO EN MIN 30-->
-<section>
-  <h2 class="text-center mb-4">Menu</h2>
-    <!-- Menú -->
-    <div class="container">
-        <!-- Entradas -->
-        <h3 class="category-title">Entradas</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Ceviche Mixto</h5>
-                            <span class="dish-price">S/ 28.90</span>
-                        </div>
-                        <p class="dish-ingredients">Pescado, mariscos, limón, cebolla, camote, choclo, cancha serrana.</p>
-                        <div>
-                            <span class="badge bg-primary">Mariscos</span>
-                            <span class="badge badge-spicy">Picante</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Tequeños de Queso</h5>
-                            <span class="dish-price">S/ 18.50</span>
-                        </div>
-                        <p class="dish-ingredients">Masa de harina de trigo rellena de queso blanco, acompañada de guacamole.</p>
-                        <div>
-                            <span class="badge badge-vegetarian">Vegetariano</span>
-                            <span class="badge bg-info text-dark">Frito</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Platos Principales -->
-        <h3 class="category-title">Platos Principales</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Lomo Saltado</h5>
-                            <span class="dish-price">S/ 32.90</span>
-                        </div>
-                        <p class="dish-ingredients">Lomo de res, cebolla, tomate, ají amarillo, papas fritas, arroz.</p>
-                        <div>
-                            <span class="badge bg-primary">Carne</span>
-                            <span class="badge badge-popular">Popular</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Arroz con Mariscos</h5>
-                            <span class="dish-price">S/ 35.50</span>
-                        </div>
-                        <p class="dish-ingredients">Arroz, calamar, camarones, mejillones, almejas, ají amarillo, culantro.</p>
-                        <div>
-                            <span class="badge bg-primary">Mariscos</span>
-                            <span class="badge badge-spicy">Picante</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Pollo a la Brasa</h5>
-                            <span class="dish-price">S/ 38.90</span>
-                        </div>
-                        <p class="dish-ingredients">Pollo marinado con romero, sillao, ají panca, acompañado de papas y ensalada.</p>
-                        <div>
-                            <span class="badge bg-primary">Pollo</span>
-                            <span class="badge badge-popular">Popular</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Risotto de Hongos</h5>
-                            <span class="dish-price">S/ 26.90</span>
-                        </div>
-                        <p class="dish-ingredients">Arroz arbóreo, hongos portobello, parmesano, vino blanco, caldo de verduras.</p>
-                        <div>
-                            <span class="badge badge-vegetarian">Vegetariano</span>
-                            <span class="badge bg-success">Saludable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Postres -->
-        <h3 class="category-title">Postres</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Suspiro Limeño</h5>
-                            <span class="dish-price">S/ 15.90</span>
-                        </div>
-                        <p class="dish-ingredients">Manjarblanco, merengue de vainilla, vino oporto, canela.</p>
-                        <div>
-                            <span class="badge bg-secondary">Dulce</span>
-                            <span class="badge badge-popular">Popular</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="dish-card card">
-                    <div class="card-body">
-                        <div class="dish-header">
-                            <h5 class="dish-name">Mazamorra Morada</h5>
-                            <span class="dish-price">S/ 12.50</span>
-                        </div>
-                        <p class="dish-ingredients">Maíz morado, frutas, membrillo, harina de camote, clavo de olor, canela.</p>
-                        <div>
-                            <span class="badge bg-secondary">Dulce</span>
-                            <span class="badge badge-vegetarian">Vegetariano</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</section>
 
 
 <?php

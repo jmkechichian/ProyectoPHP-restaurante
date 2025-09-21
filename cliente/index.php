@@ -1,7 +1,7 @@
    <?php
 // index.php
 $pageTitle = "Panel de Control Usuario";
-include '../templates/header.php';
+include '../templates/header-cliente.php';
 ?>
 
 

@@ -85,7 +85,7 @@ if (isset($_POST['register'])) {
     }
 }
 ?>
-
+<br><br><br><br><br><br>
 <section>
     <h1>Restaurante Delicioso</h1>
     <h2>Sistema de Autenticación</h2>
@@ -149,6 +149,8 @@ if (isset($_POST['register'])) {
     </div>
             </section>
             <br><br><br><br><br><br>
+            <br><br><br><br><br><br>
+        
     <?php
 include 'templates/footer.php';
 
