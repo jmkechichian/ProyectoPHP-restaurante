@@ -9,19 +9,19 @@ Requisitos Previos
 
 Instrucciones de Instalación
   1. Clonar o descargar el repositorio
-# Con Git
+Con Git
 git clone <url_del_repositorio>
 cd restaurante
-# O descargar el ZIP y extraerlo en tu directorio web
+O descargar el ZIP y extraerlo en tu directorio web
 
   2. Configurar la base de datos
-# Acceder a MySQL
+Acceder a MySQL
 mysql -u root -p
 
-# Crear la base de datos
+Crear la base de datos
 CREATE DATABASE restaurante CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-# Crear usuario (opcional)
+Crear usuario (opcional)
 CREATE USER 'usuario_restaurante'@'localhost' IDENTIFIED BY 'password_seguro';
 GRANT ALL PRIVILEGES ON restaurante.* TO 'usuario_restaurante'@'localhost';
 FLUSH PRIVILEGES;
