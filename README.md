@@ -1,7 +1,6 @@
 Video Demo
 
-Pegar Enlace aca
-
+https://youtu.be/GpbGlpiUHxE
 
 Guía de Instalación del Sistema de Restaurante
 
