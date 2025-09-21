@@ -8,7 +8,7 @@ PHP 7.4 o superior
 
 MySQL 5.7 o superior
 
-Navegador web moderno
+Navegador web
 
 🚀 Preparación del Proyecto
 1-Coloca el proyecto en la carpeta adecuada:
