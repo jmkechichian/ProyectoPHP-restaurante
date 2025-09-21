@@ -73,18 +73,4 @@ Extrae los archivos en: C:\xampp\htdocs\restaurante\vendor\phpmailer\
 
 Estructura final esperada:
 
-restaurante/
-├── vendor/
-│   ├── phpmailer/
-│   │   ├── src/
-│   │   │   ├── PHPMailer.php
-│   │   │   ├── Exception.php
-│   │   │   └── SMTP.php
-│   │   └── ...
-├── admin/
-│   ├── bd.php
-│   └── ...
-├── images/
-├── restaurante.sql
-└── index.php
 
