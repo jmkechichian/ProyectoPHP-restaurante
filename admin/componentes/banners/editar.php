@@ -1,9 +1,7 @@
    <?php
 
 $pageTitle = "Banners - Panel de Control";
-include '../../../templates/header-admin.php';
-
-include '../../bd.php';
+include '../../../templates/header.php';
 
 if(isset($_GET['txtID'])) {
       //Identifico el ID del registro a editar

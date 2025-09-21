@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_banner` (
   `ID` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
-  `Descripcion` varchar(250) NOT NULL
+  `Descripcion` varchar(250) NOT NULL,
+  `Enlace` VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -83,10 +84,44 @@ CREATE TABLE `tbl_testimonios` (
 
 CREATE TABLE `tbl_usuarios` (
   `ID` int(11) NOT NULL,
-  `Nombre` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
   `correo` varchar(250) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+
+CREATE TABLE `tbl_favoritos` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_usuario` int(11) NOT NULL,
+  `ID_menu` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_usuario`) REFERENCES `tbl_usuarios`(`ID`) ON DELETE CASCADE,
+  FOREIGN KEY (`ID_menu`) REFERENCES `tbl_menu`(`ID`) ON DELETE CASCADE
+);
+
+-- Tabla para la información general de cada pedido
+CREATE TABLE `tbl_pedidos` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_usuario` int(11) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `total` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_usuario`) REFERENCES `tbl_usuarios`(`ID`) ON DELETE CASCADE
+);
+
+-- Tabla para guardar cada producto dentro de un pedido
+CREATE TABLE `tbl_detalle_pedidos` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_pedido` int(11) NOT NULL,
+  `ID_menu` int(11) NOT NULL,
+  `precio_unitario` decimal(10,2) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_pedido`) REFERENCES `tbl_pedidos`(`ID`) ON DELETE CASCADE,
+  FOREIGN KEY (`ID_menu`) REFERENCES `tbl_menu`(`ID`) ON DELETE CASCADE
+);
+
 
 --
 -- Índices para tablas volcadas

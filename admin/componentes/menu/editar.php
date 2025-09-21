@@ -1,7 +1,6 @@
 <?php
 $pageTitle = "Editar Menú - Panel de Control";
-include '../../../templates/header-admin.php';
-include '../../bd.php'; // Conexión a la BD
+include '../../../templates/header.php';
 
 // RECUPERAR DATOS PARA MOSTRAR EN EL FORMULARIO
 if (isset($_GET['txtID'])) {
@@ -68,36 +67,38 @@ if ($_POST) {
 ?>
 
 </br>
-<div class="card">
-    <div class="card-header">Editar Plato del Menú</div>
-    <div class="card-body">
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="txtID" class="form-label">ID:</label>
-                <input readonly type="text" class="form-control" name="txtID" id="txtID" value="<?php echo $txtID; ?>" />
-            </div>
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre del plato:</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre; ?>" required />
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción:</label>
-                <input type="text" class="form-control" name="descripcion" id="descripcion" value="<?php echo $descripcion; ?>" required />
-            </div>
-            <div class="mb-3">
-                <label for="foto" class="form-label">Foto:</label>
-                <br>
-                <img src="../../../images/<?php echo $foto; ?>" width="70" alt="Foto del plato">
-                <input type="file" class="form-control mt-2" name="foto" id="foto" />
-            </div>
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio:</label>
-                <input type="number" step="0.01" class="form-control" name="precio" id="precio" value="<?php echo $precio; ?>" required />
-            </div>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">Editar Plato del Menú</div>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="txtID" class="form-label">ID:</label>
+                    <input readonly type="text" class="form-control" name="txtID" id="txtID" value="<?php echo $txtID; ?>" />
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre del plato:</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre; ?>" required />
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <input type="text" class="form-control" name="descripcion" id="descripcion" value="<?php echo $descripcion; ?>" required />
+                </div>
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto:</label>
+                    <br>
+                    <img src="../../../images/<?php echo $foto; ?>" width="70" alt="Foto del plato">
+                    <input type="file" class="form-control mt-2" name="foto" id="foto" />
+                </div>
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio:</label>
+                    <input type="number" step="0.01" class="form-control" name="precio" id="precio" value="<?php echo $precio; ?>" required />
+                </div>
 
-            <button type="submit" class="btn btn-success">Actualizar</button>
-            <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>
-        </form>
+                <button type="submit" class="btn btn-success">Actualizar</button>
+                <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>
+            </form>
+        </div>
     </div>
 </div>
 
