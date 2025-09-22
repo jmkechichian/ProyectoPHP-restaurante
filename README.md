@@ -75,6 +75,6 @@ Descarga manual:
 Descarga PHPMailer desde: https://github.com/PHPMailer/PHPMailer
 Extrae los archivos en: C:\xampp\htdocs\restaurante\vendor\phpmailer\
 
-Estructura final esperada:
+
 
 
